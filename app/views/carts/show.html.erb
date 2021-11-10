@@ -16,6 +16,7 @@
       </thead>
       <tbody>
         <% enhanced_cart.each do |item| %>
+         
           <%= render 'item', product: item[:product], quantity: item[:quantity].to_i %>
         <% end %>
       </tbody>
@@ -34,6 +35,11 @@
 
   <div class="row">
     <div class="col-xs-12">
+     <% if cart_subtotal_cents == 0 %>
+      <div class="alert alert-warning" role="alert">
+        Your cart is empty
+      </div>
+     <% else %>
       <%= form_tag orders_path do %>
         <script
           src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -45,6 +51,7 @@
           data-email="kvirani@gmail.com"
           data-currency="cad">
         </script>
+       <% end %>
       <% end %>
     </div>
   </div>
