@@ -14,6 +14,14 @@ class SessionsController < ApplicationController
     end
   end
 
+  def create
+    if user = User.authenticate_with_credentials(params[:email], params[:password])
+      redirect_to '/'
+    else
+      redirect_to '/register'
+    end
+  end
+
   def destroy
     session[:user_id] = nil
     redirect_to '/login'
