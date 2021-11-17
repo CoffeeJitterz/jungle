@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "ProductDetails", type: :feature do
+RSpec.feature "ProductDetails", type: :feature, js: true do
   before :each do
     @category = Category.create! name: 'Apparel'
 
@@ -17,11 +17,11 @@ RSpec.feature "ProductDetails", type: :feature do
   scenario "They click on one of the products" do
     # ACT
     visit root_path
-    #click_on 
+    first(:link, :text => 'Details').trigger('click')
     # DEBUG
     save_screenshot
 
     # VERIFY
-    expect(page).to have_css 'article.product', count: 10
+    expect(page).to have_css '.products-show'
   end
 end
